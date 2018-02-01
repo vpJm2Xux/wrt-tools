@@ -90,7 +90,7 @@ RUN \
 	\
 	ln -s dd-wrt/src/linux/universal/linux-4.4 linux-4.4 && \
 	cd linux-4.4 && \
-	tar cJf ../brcm-4.4.tar.xz brcm && \
+	tar cJf ../brcm-4.4.tar.xz brcm drivers/char/rtl8365mb/*.o && \
 	rm -rf brcm && \
 	rm drivers/char/rtl8365mb/*.o && \
 	rm scripts/squashfs/mksquashfs* && \
