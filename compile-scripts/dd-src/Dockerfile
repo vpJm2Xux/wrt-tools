@@ -8,27 +8,27 @@ RUN \
 WORKDIR /usr/src/dd-wrt
 
 RUN \
-	svn co -r 34760 --depth immediates svn://svn.dd-wrt.com/DD-WRT . && \
+	svn co -r 34777 --depth immediates svn://svn.dd-wrt.com/DD-WRT . && \
 	\
-	svn update -r 34760 --set-depth=infinity   tools && \
-	svn update -r 34760 --set-depth=infinity   opt && \
-	svn update -r 34760 --set-depth=immediates src && \
-	svn update -r 34760 --set-depth=immediates src/linux && \
-	svn update -r 34760 --set-depth=immediates src/linux/universal && \
-	svn update -r 34760 --set-depth=infinity   src/linux/universal/linux-4.4 && \
+	svn update -r 34777 --set-depth=infinity   tools && \
+	svn update -r 34777 --set-depth=infinity   opt && \
+	svn update -r 34777 --set-depth=immediates src && \
+	svn update -r 34777 --set-depth=immediates src/linux && \
+	svn update -r 34777 --set-depth=immediates src/linux/universal && \
+	svn update -r 34777 --set-depth=infinity   src/linux/universal/linux-4.4 && \
 	\
 	echo OK!
 
 RUN \
-	svn update -r 34760 --set-depth=infinity   src/linux/universal/linux-4.9 && \
-	svn update -r 34760 --set-depth=infinity   src/include.v24 src/include.bcm && \
-	svn update -r 34760 --set-depth=immediates src/router && \
+	svn update -r 34777 --set-depth=infinity   src/linux/universal/linux-4.9 && \
+	svn update -r 34777 --set-depth=infinity   src/include.v24 src/include.bcm && \
+	svn update -r 34777 --set-depth=immediates src/router && \
 	\
 	echo OK!
 
 RUN \
 	cd src/router && \
-	svn update -r 34760 --set-depth=infinity \
+	svn update -r 34777 --set-depth=infinity \
 		services nvram utils shared \
 		rules configs dropbear libutils \
 		iptables dnsmasq pcre gmp nettle \
@@ -41,7 +41,7 @@ RUN \
 
 RUN \
 	cd src/router && \
-	svn update -r 34760 --set-depth=infinity \
+	svn update -r 34777 --set-depth=infinity \
 		httpd kromo \
 		mtd-utils libnet wiviz2 rc \
 		bridge busybox netconf \
@@ -56,7 +56,7 @@ RUN \
 
 RUN \
 	cd src/router && \
-	svn update -r 34760 --set-depth=infinity \
+	svn update -r 34777 --set-depth=infinity \
 		samba igmp-proxy nas wlconf \
 		pciutils proxywatchdog jffs2 \
 		language networksettings routerstyle scheduler syslog \
@@ -100,31 +100,31 @@ RUN \
 	rm drivers/net/wireless/rt7620 && \
 	cd .. && \
 	\
-	(diff -urN linux-4.4.orig linux-4.4 > ddwrt-4.4.113-34760.diff || echo) && \
+	(diff -urN linux-4.4.orig linux-4.4 > ddwrt-4.4.113-34777.diff || echo) && \
 	mv linux-4.4 linux-4.4.ddwrt && \
 	\
 	tar xf linux-4.4.tar.xz && \
 	cd linux-4.4 && \
 	cat ../patch-4.4.113.xz | xz -d | patch -p1 > /dev/null && \
 	echo applying ddwrt diff && \
-	cat ../ddwrt-4.4.113-34760.diff | (patch -p1 > /dev/null || echo there are few known errors) && \
+	cat ../ddwrt-4.4.113-34777.diff | (patch -p1 > /dev/null || echo there are few known errors) && \
 	cd .. && \
 	echo generating patch again && \
-	(diff -urN --no-dereference linux-4.4.orig linux-4.4 > ddwrt-4.4.113-34760.diff || echo) && \
+	(diff -urN --no-dereference linux-4.4.orig linux-4.4 > ddwrt-4.4.113-34777.diff || echo) && \
 	mv linux-4.4 linux-4.4.patched && \
 	\
 	tar xf linux-4.4.tar.xz && \
 	cd linux-4.4 && \
 	cat ../patch-4.4.113.xz | xz -d | patch -p1 > /dev/null && \
 	echo applying generated patch && \
-	cat ../ddwrt-4.4.113-34760.diff | patch -p1 > /dev/null && \
+	cat ../ddwrt-4.4.113-34777.diff | patch -p1 > /dev/null && \
 	cd .. && \
 	\
 	echo verifying generated patch && \
 	(diff -urN linux-4.4.ddwrt linux-4.4.patched > /dev/null || echo failed) && \
 	rm -rf linux-4.4* patch-4.4* && \
-	xz ddwrt-4.4.113-34760.diff && \
-	mv ddwrt-4.4.113-34760.diff.xz dd-wrt/src/linux/universal && \
+	xz ddwrt-4.4.113-34777.diff && \
+	mv ddwrt-4.4.113-34777.diff.xz dd-wrt/src/linux/universal && \
 	echo OK!
 
 RUN \
@@ -149,31 +149,31 @@ RUN \
 	rm drivers/net/wireless/rt7620 && \
 	cd .. && \
 	\
-	(diff -urN linux-4.9.orig linux-4.9 > ddwrt-4.9.78-34760.diff || echo) && \
+	(diff -urN linux-4.9.orig linux-4.9 > ddwrt-4.9.78-34777.diff || echo) && \
 	mv linux-4.9 linux-4.9.ddwrt && \
 	\
 	tar xf linux-4.9.tar.xz && \
 	cd linux-4.9 && \
 	cat ../patch-4.9.78.xz | xz -d | patch -p1 > /dev/null && \
 	echo applying ddwrt diff && \
-	cat ../ddwrt-4.9.78-34760.diff | (patch -p1 > /dev/null || echo there are few known errors) && \
+	cat ../ddwrt-4.9.78-34777.diff | (patch -p1 > /dev/null || echo there are few known errors) && \
 	cd .. && \
 	echo generating patch again && \
-	(diff -urN --no-dereference linux-4.9.orig linux-4.9 > ddwrt-4.9.78-34760.diff || echo) && \
+	(diff -urN --no-dereference linux-4.9.orig linux-4.9 > ddwrt-4.9.78-34777.diff || echo) && \
 	mv linux-4.9 linux-4.9.patched && \
 	\
 	tar xf linux-4.9.tar.xz && \
 	cd linux-4.9 && \
 	cat ../patch-4.9.78.xz | xz -d | patch -p1 > /dev/null && \
 	echo applying generated patch && \
-	cat ../ddwrt-4.9.78-34760.diff | patch -p1 > /dev/null && \
+	cat ../ddwrt-4.9.78-34777.diff | patch -p1 > /dev/null && \
 	cd .. && \
 	\
 	echo verifying generated patch && \
 	(diff -urN linux-4.9.ddwrt linux-4.9.patched > failed || echo failed) && \
 	rm -rf linux-4.9* patch-4.9* && \
-	xz ddwrt-4.9.78-34760.diff && \
-	mv ddwrt-4.9.78-34760.diff.xz dd-wrt/src/linux/universal && \
+	xz ddwrt-4.9.78-34777.diff && \
+	mv ddwrt-4.9.78-34777.diff.xz dd-wrt/src/linux/universal && \
 	echo OK!
 
 RUN \
