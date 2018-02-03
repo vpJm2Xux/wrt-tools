@@ -73,9 +73,8 @@ CONFIG
 make defconfig
 make tools/download
 make toolchain/download
-make -j 4 toolchain/install V=s || exit 1
+make -j 4 toolchain/install || exit 1
 
 tar cvJf /opt/cross/arm-v7a/arm-v7a.tar.xz \
-	/opt/cross/arm-v7a/staging_dir/host/bin \
-	/opt/cross/arm-v7a/staging_dir/host/share \
+	/opt/cross/arm-v7a/staging_dir/host \
 	/opt/cross/arm-v7a/staging_dir/toolchain*
