@@ -74,17 +74,21 @@ RUN \
 
 RUN \
 	cd .. && \
-	wget https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.4.tar.xz && \
-	wget https://www.kernel.org/pub/linux/kernel/v4.x/patch-4.4.113.xz && \
-	wget https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.9.tar.xz && \
-	wget https://www.kernel.org/pub/linux/kernel/v4.x/patch-4.9.78.xz && \
+	wget --progress=bar:force:noscroll \
+		https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.4.tar.xz && \
+	wget --progress=bar:force:noscroll \
+		https://www.kernel.org/pub/linux/kernel/v4.x/patch-4.4.115.xz && \
+	wget --progress=bar:force:noscroll \
+		https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.9.tar.xz && \
+	wget --progress=bar:force:noscroll \
+		https://www.kernel.org/pub/linux/kernel/v4.x/patch-4.9.80.xz && \
 	echo OK!
 
 RUN \
 	cd .. && \
 	tar xf linux-4.4.tar.xz && \
 	cd linux-4.4 && \
-	cat ../patch-4.4.113.xz | xz -d | patch -p1 > /dev/null && \
+	cat ../patch-4.4.115.xz | xz -d | patch -p1 > /dev/null && \
 	cd .. && \
 	mv linux-4.4 linux-4.4.orig && \
 	\
@@ -100,38 +104,38 @@ RUN \
 	rm drivers/net/wireless/rt7620 && \
 	cd .. && \
 	\
-	(diff -urN linux-4.4.orig linux-4.4 > ddwrt-4.4.113-34876.diff || echo) && \
+	(diff -urN linux-4.4.orig linux-4.4 > ddwrt-4.4.115-34876.diff || echo) && \
 	mv linux-4.4 linux-4.4.ddwrt && \
 	\
 	tar xf linux-4.4.tar.xz && \
 	cd linux-4.4 && \
-	cat ../patch-4.4.113.xz | xz -d | patch -p1 > /dev/null && \
+	cat ../patch-4.4.115.xz | xz -d | patch -p1 > /dev/null && \
 	echo applying ddwrt diff && \
-	cat ../ddwrt-4.4.113-34876.diff | (patch -p1 > /dev/null || echo there are few known errors) && \
+	cat ../ddwrt-4.4.115-34876.diff | (patch -p1 > /dev/null || echo there are few known errors) && \
 	cd .. && \
 	echo generating patch again && \
-	(diff -urN --no-dereference linux-4.4.orig linux-4.4 > ddwrt-4.4.113-34876.diff || echo) && \
+	(diff -urN --no-dereference linux-4.4.orig linux-4.4 > ddwrt-4.4.115-34876.diff || echo) && \
 	mv linux-4.4 linux-4.4.patched && \
 	\
 	tar xf linux-4.4.tar.xz && \
 	cd linux-4.4 && \
-	cat ../patch-4.4.113.xz | xz -d | patch -p1 > /dev/null && \
+	cat ../patch-4.4.115.xz | xz -d | patch -p1 > /dev/null && \
 	echo applying generated patch && \
-	cat ../ddwrt-4.4.113-34876.diff | patch -p1 > /dev/null && \
+	cat ../ddwrt-4.4.115-34876.diff | patch -p1 > /dev/null && \
 	cd .. && \
 	\
 	echo verifying generated patch && \
 	(diff -urN linux-4.4.ddwrt linux-4.4.patched > /dev/null || echo failed) && \
 	rm -rf linux-4.4* patch-4.4* && \
-	xz ddwrt-4.4.113-34876.diff && \
-	mv ddwrt-4.4.113-34876.diff.xz dd-wrt/src/linux/universal && \
+	xz ddwrt-4.4.115-34876.diff && \
+	mv ddwrt-4.4.115-34876.diff.xz dd-wrt/src/linux/universal && \
 	echo OK!
 
 RUN \
 	cd .. && \
 	tar xf linux-4.9.tar.xz && \
 	cd linux-4.9 && \
-	cat ../patch-4.9.78.xz | xz -d | patch -p1 > /dev/null && \
+	cat ../patch-4.9.80.xz | xz -d | patch -p1 > /dev/null && \
 	cd .. && \
 	mv linux-4.9 linux-4.9.orig && \
 	\
@@ -149,31 +153,31 @@ RUN \
 	rm drivers/net/wireless/rt7620 && \
 	cd .. && \
 	\
-	(diff -urN linux-4.9.orig linux-4.9 > ddwrt-4.9.78-34876.diff || echo) && \
+	(diff -urN linux-4.9.orig linux-4.9 > ddwrt-4.9.80-34876.diff || echo) && \
 	mv linux-4.9 linux-4.9.ddwrt && \
 	\
 	tar xf linux-4.9.tar.xz && \
 	cd linux-4.9 && \
-	cat ../patch-4.9.78.xz | xz -d | patch -p1 > /dev/null && \
+	cat ../patch-4.9.80.xz | xz -d | patch -p1 > /dev/null && \
 	echo applying ddwrt diff && \
-	cat ../ddwrt-4.9.78-34876.diff | (patch -p1 > /dev/null || echo there are few known errors) && \
+	cat ../ddwrt-4.9.80-34876.diff | (patch -p1 > /dev/null || echo there are few known errors) && \
 	cd .. && \
 	echo generating patch again && \
-	(diff -urN --no-dereference linux-4.9.orig linux-4.9 > ddwrt-4.9.78-34876.diff || echo) && \
+	(diff -urN --no-dereference linux-4.9.orig linux-4.9 > ddwrt-4.9.80-34876.diff || echo) && \
 	mv linux-4.9 linux-4.9.patched && \
 	\
 	tar xf linux-4.9.tar.xz && \
 	cd linux-4.9 && \
-	cat ../patch-4.9.78.xz | xz -d | patch -p1 > /dev/null && \
+	cat ../patch-4.9.80.xz | xz -d | patch -p1 > /dev/null && \
 	echo applying generated patch && \
-	cat ../ddwrt-4.9.78-34876.diff | patch -p1 > /dev/null && \
+	cat ../ddwrt-4.9.80-34876.diff | patch -p1 > /dev/null && \
 	cd .. && \
 	\
 	echo verifying generated patch && \
 	(diff -urN linux-4.9.ddwrt linux-4.9.patched > failed || echo failed) && \
 	rm -rf linux-4.9* patch-4.9* && \
-	xz ddwrt-4.9.78-34876.diff && \
-	mv ddwrt-4.9.78-34876.diff.xz dd-wrt/src/linux/universal && \
+	xz ddwrt-4.9.80-34876.diff && \
+	mv ddwrt-4.9.80-34876.diff.xz dd-wrt/src/linux/universal && \
 	echo OK!
 
 RUN \
