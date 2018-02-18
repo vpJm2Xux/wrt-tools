@@ -7,7 +7,7 @@ RUN \
 		gcc gettext git libc6:i386 libstdc++6:i386 libtool make \
 		net-tools pkg-config subversion tar wget \
 		xz-utils patch libssl-dev zip p7zip gnupg libz-dev && \
-	wget https://github.com/vpJm2Xux/wrt-tools/releases/download/0.0.6/arm-v7a-musl.tar.xz && \
+	wget https://github.com/vpJm2Xux/wrt-tools/releases/download/0.0.11/arm-v7a-musl.tar.xz && \
 	tar xvf arm-v7a-musl.tar.xz && \
 	rm arm-v7a-musl.tar.xz && \
 	echo OK!
