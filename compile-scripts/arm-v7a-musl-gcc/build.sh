@@ -1,9 +1,11 @@
 #!/bin/sh
 
-# if script is located on /opt/cross/arm-v7a then it build and packs toolchain
+set -e
+
+# if script is located on /opt/cross/ then it builds and packs toolchain
 # otherwise it build generic linux toolchain using docker (and old ubuntu to support many glibc versions)
-if [ ! -f /opt/cross/arm-v7a/build.sh ]; then
-	exec docker run --rm -it -v `pwd`:/opt/cross/arm-v7a ubuntu:14.04 /opt/cross/arm-v7a/build.sh
+if [ ! -f /opt/cross/build.sh ]; then
+	exec docker run --rm -it -v `pwd`:/opt/cross ubuntu:14.04 /opt/cross/build.sh
 fi
 
 # path is only useful for macOS build where we want to add symlinks to gnu tools
@@ -19,13 +21,14 @@ echo 'Checking for GNU readlink'
 readlink --version | grep GNU || exit 1
 echo OK
 
-cd /opt/cross/arm-v7a || exit 1
+mkdir -p /opt/cross/arm-v7a
+cd /opt/cross/arm-v7a
 
 OK=n
 test -d bin || \
 test -d build_dir || \
 test -f scripts/config/conf || \
-test -f scripts/config/mconf* || \
+test -f scripts/config/mconf*o || \
 test -d staging_dir || \
 test -d tmp || \
 OK=y
@@ -35,7 +38,7 @@ if [ "x$OK" = "xn" ]; then
 		read -p "Do you want to remove files from previous build? " yn
 		case $yn in
 			[Yy]* ) rm -rf bin build_dir scripts/config/conf \
-				scripts/config/lxdialog \
+				scripts/config/lxdialog/*o \
 				scripts/config/*o staging_dir tmp && echo OK; break;;
 			[Nn]* ) break;;
 			* ) echo "Please answer yes or no.";;
@@ -43,23 +46,18 @@ if [ "x$OK" = "xn" ]; then
 	done
 fi
 
-apt-get update
-apt-get -y install build-essential ncurses-dev libz-dev gawk unzip wget python git
-
 if [ ! -e .git ]; then
-	git clone https://git.lede-project.org/source.git /tmp/lede
-	mv /tmp/lede/.git .
-	rm -rf /tmp/lede
+	apt-get update
+	apt-get -y install build-essential ncurses-dev libz-dev gawk unzip wget python git
+	git clone https://git.lede-project.org/source.git .
 	git fetch --tags
 	git checkout v17.01.4
+	ln -s ../patches .
+	cat patches/series | while read a; do patch -p1 < patches/$a; done
 fi
 
-git checkout .
-
 cat <<CONFIG > .config
-CONFIG_TARGET_bcm53xx=y
-CONFIG_TARGET_bcm53xx_Generic=y
-CONFIG_TARGET_BOARD="bcm53xx"
+CONFIG_TARGET_dd_wrt=y
 CONFIG_MAKE_TOOLCHAIN=y
 CONFIG_DEVEL=y
 CONFIG_TOOLCHAINOPTS=y
@@ -73,8 +71,9 @@ CONFIG
 make defconfig
 make tools/download
 make toolchain/download
-make -j 4 toolchain/install || exit 1
+make -j 4 toolchain/install
 
 tar cvJf /opt/cross/arm-v7a/arm-v7a.tar.xz \
-	/opt/cross/arm-v7a/staging_dir/host \
+	/opt/cross/arm-v7a/staging_dir/host/bin \
+	/opt/cross/arm-v7a/staging_dir/host/share \
 	/opt/cross/arm-v7a/staging_dir/toolchain*
