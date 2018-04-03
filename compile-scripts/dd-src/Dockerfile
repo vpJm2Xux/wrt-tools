@@ -2,12 +2,12 @@ FROM debian
 
 RUN \
 	apt-get update && \
-	apt-get install -y subversion && \
+	apt-get install -y subversion wget zip p7zip xz-utils patch && \
 	echo OK!
 
 WORKDIR /usr/src/dd-wrt
 
-ENV BASE_REV=35034
+ENV BASE_REV=35531
 
 RUN \
 	svn co -r $BASE_REV --depth immediates svn://svn.dd-wrt.com/DD-WRT . && \
@@ -69,7 +69,7 @@ RUN \
 	&& \
 	echo OK!
 
-ENV REV=35244
+ENV REV=35531
 
 RUN \
 	svn update -r $REV --set-depth=infinity   tools && \
@@ -105,14 +105,10 @@ RUN \
 	&& \
 	echo OK!
 
-ENV PATCH44=120
-ENV PATCH49=86
+ENV PATCH44=124
+ENV PATCH49=90
 
 ADD emf_bin.tar.xz /usr/src/dd-wrt/src/router
-
-RUN \
-	apt-get install -y wget zip p7zip xz-utils patch && \
-	echo OK!
 
 RUN \
 	cd .. && \
