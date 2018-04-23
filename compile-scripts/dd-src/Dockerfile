@@ -7,7 +7,7 @@ RUN \
 
 WORKDIR /usr/src/dd-wrt
 
-ENV BASE_REV=35531
+ENV BASE_REV=35770
 
 RUN \
 	svn co -r $BASE_REV --depth immediates svn://svn.dd-wrt.com/DD-WRT . && \
@@ -69,7 +69,7 @@ RUN \
 	&& \
 	echo OK!
 
-ENV REV=35531
+ENV REV=35770
 
 RUN \
 	svn update -r $REV --set-depth=infinity   tools && \
@@ -105,8 +105,8 @@ RUN \
 	&& \
 	echo OK!
 
-ENV PATCH44=124
-ENV PATCH49=90
+ENV PATCH44=128
+ENV PATCH49=94
 
 ADD emf_bin.tar.xz /usr/src/dd-wrt/src/router
 
