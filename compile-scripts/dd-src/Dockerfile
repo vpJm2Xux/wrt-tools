@@ -69,7 +69,7 @@ RUN \
 	&& \
 	echo OK!
 
-ENV REV=35770
+ENV REV=35831
 
 RUN \
 	svn update -r $REV --set-depth=infinity   tools && \
@@ -101,12 +101,12 @@ RUN \
 		telnet wdswatchdog ipv6 conntrack radiooff hwmon \
 		stabridge ifenslave stuck_beacon usb disktype hotplug2 udev \
 		mstp ttraff filesharing misc tools netgear lzo \
-		wireless-tools qtn \
+		wireguard wireless-tools madwifi qtn \
 	&& \
 	echo OK!
 
-ENV PATCH44=128
-ENV PATCH49=94
+ENV PATCH44=129
+ENV PATCH49=96
 
 ADD emf_bin.tar.xz /usr/src/dd-wrt/src/router
 
