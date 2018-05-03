@@ -89,7 +89,11 @@ RUN \
 		httpd kromo \
 		mtd-utils libnet wiviz2 rc \
 		bridge busybox netconf \
-		ntpclient libnl-tiny ipvsadm \
+		ntpclient libnl-tiny ipvsadm
+
+RUN \
+	cd src/router && \
+	svn update -r $REV --set-depth=infinity \
 		rp-pppoe udhcpc udhcpd upnp \
 		iproute2 xl2tpd cron pptp-client \
 		ebtables-2.0.9 \
@@ -101,7 +105,7 @@ RUN \
 		telnet wdswatchdog ipv6 conntrack radiooff hwmon \
 		stabridge ifenslave stuck_beacon usb disktype hotplug2 udev \
 		mstp ttraff filesharing misc tools netgear lzo \
-		wireguard wireless-tools madwifi qtn \
+		wireguard wireless-tools madwifi hostapd-2017-08-24 qtn \
 	&& \
 	echo OK!
 
