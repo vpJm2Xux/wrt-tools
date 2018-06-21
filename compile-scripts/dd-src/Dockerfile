@@ -7,7 +7,7 @@ RUN \
 
 WORKDIR /usr/src/dd-wrt
 
-ENV BASE_REV=35770
+ENV BASE_REV=36168
 
 RUN \
 	svn co -r $BASE_REV --depth immediates svn://svn.dd-wrt.com/DD-WRT . && \
@@ -69,7 +69,7 @@ RUN \
 	&& \
 	echo OK!
 
-ENV REV=36006
+ENV REV=36168
 
 RUN \
 	svn update -r $REV --set-depth=infinity   tools && \
@@ -106,11 +106,12 @@ RUN \
 		stabridge ifenslave stuck_beacon usb disktype hotplug2 udev \
 		mstp ttraff filesharing misc tools netgear lzo \
 		wireguard wireless-tools madwifi hostapd-2017-08-24 qtn \
+		wlc ubi-utils \
 	&& \
 	echo OK!
 
-ENV PATCH44=132
-ENV PATCH49=102
+ENV PATCH44=138
+ENV PATCH49=109
 
 ADD emf_bin.tar.xz /usr/src/dd-wrt/src/router
 
