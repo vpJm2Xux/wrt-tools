@@ -69,7 +69,7 @@ RUN \
 	&& \
 	echo OK!
 
-ENV REV=36699
+ENV REV=36808
 
 RUN \
 	svn update -r $REV --set-depth=infinity   tools && \
@@ -110,8 +110,8 @@ RUN \
 	&& \
 	echo OK!
 
-ENV PATCH44=151
-ENV PATCH49=123
+ENV PATCH44=153
+ENV PATCH49=124
 
 ADD emf_bin.tar.xz /usr/src/dd-wrt/src/router
 
