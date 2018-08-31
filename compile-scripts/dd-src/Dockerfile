@@ -110,6 +110,13 @@ RUN \
 	&& \
 	echo OK!
 
+RUN \
+	svn update -r $REV --depth=files src && \
+	svn update -r $REV --depth=files src/linux && \
+	svn update -r $REV --depth=files src/linux/universal && \
+	svn update -r $REV --depth=files src/router && \
+	echo OK!
+
 ENV PATCH44=153
 ENV PATCH49=124
 
