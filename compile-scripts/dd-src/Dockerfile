@@ -117,6 +117,11 @@ RUN \
 	svn update -r $REV --depth=files src/router && \
 	echo OK!
 
+RUN \
+	cd src/router && \
+	svn update -r $REV --set-depth=infinity \
+		pppd
+
 ENV PATCH44=157
 ENV PATCH49=128
 
