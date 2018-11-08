@@ -10,8 +10,19 @@ RUN \
 	wget https://github.com/vpJm2Xux/wrt-tools/releases/download/0.0.11/arm-v7a-musl.tar.xz && \
 	tar xvf arm-v7a-musl.tar.xz && \
 	rm arm-v7a-musl.tar.xz && \
+	\
+	apt-get install -y curl g++ python3 \
+		software-properties-common qemu-user-static && \
+	\
+	cd /usr/src && \
+	git clone https://github.com/ruslo/polly.git && \
+	\
 	echo OK!
 
 ENV PATH="/opt/cross/arm-v7a/staging_dir/host/bin:${PATH}"
 ENV PATH="/opt/cross/arm-v7a/staging_dir/toolchain-arm_cortex-a9_gcc-6.3.0_musl-1.1.16_eabi/bin:${PATH}"
 ENV STAGING_DIR="/opt/cross/arm-v7a/staging_dir/toolchain-arm_cortex-a9_gcc-6.3.0_musl-1.1.16_eabi"
+
+ENV ROUTER_DDWRT_TOOLCHAIN arm-openwrt-linux-muslgnueabi
+ENV ROUTER_DDWRT_TOOLCHAIN_ROOT $STAGING_DIR
+ENV PATH /usr/src/polly/bin:$PATH
