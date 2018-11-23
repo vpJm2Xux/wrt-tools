@@ -19,9 +19,18 @@ RUN \
 	\
 	echo OK!
 
-ENV PATH="/opt/cross/arm-v7a/staging_dir/host/bin:${PATH}"
-ENV PATH="/opt/cross/arm-v7a/staging_dir/toolchain-arm_cortex-a9_gcc-6.3.0_musl-1.1.16_eabi/bin:${PATH}"
-ENV STAGING_DIR="/opt/cross/arm-v7a/staging_dir/toolchain-arm_cortex-a9_gcc-6.3.0_musl-1.1.16_eabi"
+RUN \
+	curl -sSL https://github.com/Kitware/CMake/releases/download/v3.13.0/cmake-3.13.0-Linux-x86_64.sh \
+		-o /tmp/cmake.sh && \
+	\
+	sh /tmp/cmake.sh --prefix=/opt/cross/arm-v7a/staging_dir/host --skip-license && \
+	rm /tmp/cmake.sh && \
+	\
+	echo OK!
+
+ENV PATH /opt/cross/arm-v7a/staging_dir/host/bin:$PATH
+ENV PATH /opt/cross/arm-v7a/staging_dir/toolchain-arm_cortex-a9_gcc-6.3.0_musl-1.1.16_eabi/bin:$PATH
+ENV STAGING_DIR /opt/cross/arm-v7a/staging_dir/toolchain-arm_cortex-a9_gcc-6.3.0_musl-1.1.16_eabi
 
 ENV ROUTER_DDWRT_TOOLCHAIN arm-openwrt-linux-muslgnueabi
 ENV ROUTER_DDWRT_TOOLCHAIN_ROOT $STAGING_DIR
