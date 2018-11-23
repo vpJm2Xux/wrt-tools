@@ -17,14 +17,14 @@ RUN \
 	cd /usr/src && \
 	git clone https://github.com/ruslo/polly.git && \
 	\
-	echo OK!
-
-RUN \
 	curl -sSL https://github.com/Kitware/CMake/releases/download/v3.13.0/cmake-3.13.0-Linux-x86_64.sh \
 		-o /tmp/cmake.sh && \
 	\
 	sh /tmp/cmake.sh --prefix=/opt/cross/arm-v7a/staging_dir/host --skip-license && \
 	rm /tmp/cmake.sh && \
+	\
+	curl -sSLo /usr/bin/mcli https://dl.minio.io/client/mc/release/linux-amd64/mc && \
+	chmod +x /usr/bin/mcli && \
 	\
 	echo OK!
 
