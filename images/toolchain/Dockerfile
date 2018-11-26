@@ -28,6 +28,16 @@ RUN \
 	\
 	echo OK!
 
+RUN \
+	cd /usr/src && \
+	git clone https://github.com/cgreen-devs/cgreen.git && \
+	cd cgreen && \
+	cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr . && \
+	make install && \
+	cd .. && rm -rf cgreen && \
+	\
+	echo OK!
+
 ENV PATH /opt/cross/arm-v7a/staging_dir/host/bin:$PATH
 ENV PATH /opt/cross/arm-v7a/staging_dir/toolchain-arm_cortex-a9_gcc-6.3.0_musl-1.1.16_eabi/bin:$PATH
 ENV STAGING_DIR /opt/cross/arm-v7a/staging_dir/toolchain-arm_cortex-a9_gcc-6.3.0_musl-1.1.16_eabi
