@@ -69,7 +69,7 @@ RUN \
 	&& \
 	echo OK!
 
-ENV REV=37837
+ENV REV=37908
 
 RUN \
 	svn update -r $REV --set-depth=infinity   tools && \
@@ -106,6 +106,7 @@ RUN \
 		stabridge ifenslave stuck_beacon usb disktype hotplug2 udev \
 		mstp ttraff filesharing misc tools netgear lzo \
 		wireguard wireless-tools madwifi hostapd-2017-08-24 qtn \
+		hostapd-2018-07-08 \
 		wlc ubi-utils \
 	&& \
 	echo OK!
@@ -122,8 +123,8 @@ RUN \
 	svn update -r $REV --set-depth=infinity \
 		pppd exfat-utils
 
-ENV PATCH44=164
-ENV PATCH49=138
+ENV PATCH44=166
+ENV PATCH49=142
 
 ADD emf_bin.tar.xz /usr/src/dd-wrt/src/router
 
