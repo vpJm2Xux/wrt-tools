@@ -69,7 +69,7 @@ RUN \
 	&& \
 	echo OK!
 
-ENV REV=37908
+ENV REV=38507
 
 RUN \
 	svn update -r $REV --set-depth=infinity   tools && \
@@ -121,10 +121,10 @@ RUN \
 RUN \
 	cd src/router && \
 	svn update -r $REV --set-depth=infinity \
-		pppd exfat-utils
+		pppd exfat-utils qrencode
 
-ENV PATCH44=166
-ENV PATCH49=142
+ENV PATCH44=172
+ENV PATCH49=153
 
 ADD emf_bin.tar.xz /usr/src/dd-wrt/src/router
 
