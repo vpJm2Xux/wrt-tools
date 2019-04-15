@@ -7,7 +7,7 @@ RUN \
 
 WORKDIR /usr/src/dd-wrt
 
-ENV BASE_REV=37837
+ENV BASE_REV=39508
 
 RUN \
 	svn co -r $BASE_REV --depth immediates svn://svn.dd-wrt.com/DD-WRT . && \
@@ -69,7 +69,7 @@ RUN \
 	&& \
 	echo OK!
 
-ENV REV=38507
+ENV REV=39508
 
 RUN \
 	svn update -r $REV --set-depth=infinity   tools && \
@@ -123,10 +123,8 @@ RUN \
 	svn update -r $REV --set-depth=infinity \
 		pppd exfat-utils qrencode
 
-ENV PATCH44=172
-ENV PATCH49=153
-
-ADD emf_bin.tar.xz /usr/src/dd-wrt/src/router
+ENV PATCH44=178
+ENV PATCH49=168
 
 RUN \
 	cd .. && \
