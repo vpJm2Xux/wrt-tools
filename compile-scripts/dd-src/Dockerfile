@@ -69,7 +69,9 @@ RUN \
 	&& \
 	echo OK!
 
-ENV REV=39508
+ENV REV=39866
+ENV PATCH44=180
+ENV PATCH49=179
 
 RUN \
 	svn update -r $REV --set-depth=infinity   tools && \
@@ -122,9 +124,6 @@ RUN \
 	cd src/router && \
 	svn update -r $REV --set-depth=infinity \
 		pppd exfat-utils qrencode
-
-ENV PATCH44=178
-ENV PATCH49=168
 
 RUN \
 	cd .. && \
