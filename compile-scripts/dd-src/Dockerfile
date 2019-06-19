@@ -69,9 +69,9 @@ RUN \
 	&& \
 	echo OK!
 
-ENV REV=39866
-ENV PATCH44=180
-ENV PATCH49=179
+ENV REV=40048
+ENV PATCH44=181
+ENV PATCH49=181
 
 RUN \
 	svn update -r $REV --set-depth=infinity   tools && \
