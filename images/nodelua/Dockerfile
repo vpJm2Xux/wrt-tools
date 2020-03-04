@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:12
 RUN \
 	apt-get update && \
 	apt-get install -y zip openssl libluajit-5.1-dev && \
