@@ -5,7 +5,7 @@ RUN \
 	apt-get update && \
 	apt-get install -y autoconf  automake bc bison bzip2 ccache cmake flex \
 		gcc gettext git libc6:i386 libstdc++6:i386 libtool make \
-		net-tools pkg-config subversion tar wget \
+		net-tools pkg-config subversion tar wget ninja-build \
 		xz-utils patch libssl-dev zip p7zip gnupg libz-dev && \
 	wget https://github.com/vpJm2Xux/wrt-tools/releases/download/0.0.11/arm-v7a-musl.tar.xz && \
 	tar xvf arm-v7a-musl.tar.xz && \
